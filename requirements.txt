@@ -1,0 +1,6 @@
+dotenv
+selenium
+requests
+bs4
+time
+dotenv
