@@ -55,41 +55,50 @@ class LoginEstrelabet:
         button_roulette = WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, "//span[contains(@class, 'text flex-item') and contains(text(), 'Roleta')]")))
         button_roulette.click()
+        time.sleep(3)
         
 
-        # Localiza um card de roleta
+        # Localiza um card de roleta e move o mouse sobre ele para que apareça o elemento oculto
         auto_roulette = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "//img[@class='gm-img']")))
-        # move o mouse sobre ele para que apareça o elemento oculto
-        time.sleep(2)
+            EC.presence_of_element_located((By.XPATH, "//img[@class='gm-img']")))        
         actions = ActionChains(self.driver)
         actions.move_to_element(auto_roulette).perform()
+        time.sleep(5)
         hidden_element = WebDriverWait(self.driver, 10).until(
-             EC.presence_of_element_located((By.XPATH, "//a[@class='btn real' and contains(text(), 'Jogar agora')]")))        
+             EC.presence_of_element_located((By.XPATH, "//a[@class='btn real' and contains(text(), 'Jogar agora')]")))
+        time.sleep(2)     
         hidden_element.click()               
-        time.sleep(20)
+        time.sleep(30)
 
-        # Seleciona o botão que estiver visível antes do botão "Todos os jogos"
-        try:            
-            btn_ok = WebDriverWait(self.driver, 10).until(
-                        EC.visibility_of_element_located((By.XPATH, "//button[@class='btn btn-primary promo-optbtn okbtn']")))
-            btn_ok.click()        
-        except NoSuchElementException:
-            try:            
-                btn_no_thanks = WebDriverWait(self.driver, 10).until(
-                        EC.visibility_of_element_located((By.XPATH, "//button[@class='pp_desktopBTN2']")))
-                btn_no_thanks.click()
-            except NoSuchElementException:
-               print("Nenhum borão de fechamento de popup encontrado")
-               
+        # Remove os popus que estiverem visíveis antes do botão "Todos os jogos"
+        open_popups = True
+        while open_popups:
+            try:
+                # Verificar se o botão do pop-up de ajuda está visível
+                popup_div = WebDriverWait(self.driver, 10).until(
+                   EC.visibility_of_element_located((By.XPATH, "//div[@class='dropswinbg sparkling']")))
             
-        try:
-            all_games = WebDriverWait(self.driver, 10).until(
-                    EC.presence_of_element_located((By.ID, "homeId")))
-            all_games.click()
-        except NoSuchElementException:
-           print("Botão 'Todos os jogos' não localizado")
+                # Fechar o pop-up de ajuda
+                close_popup = WebDriverWait(self.driver, 10).until(
+                   EC.visibility_of_element_located((By.XPATH, "//button[@class='btn btn-primary promo-optbtn okbtn']")))
+                close_popup.click()
+        
+            except NoSuchElementException:
+                try:
+                    btn_no_thanks = WebDriverWait(self.driver, 10).until(
+                    EC.visibility_of_element_located((By.XPATH, "//button[@class='pp_desktopBTN2']")))
+                    btn_no_thanks.click()
+                except NoSuchElementException:
+                    # Não há mais pop-ups abertos, sair do loop
+                    open_popups = False
 
+        
+        # Clica no botão "tidos os jogos" para ir para os resultados
+        all_games = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.ID, "homeId")))
+        all_games.click()
+        
+       
             
         
         
