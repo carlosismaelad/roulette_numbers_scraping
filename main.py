@@ -78,33 +78,7 @@ class LoginEstrelabet:
         pyautogui.click(x=1038, y=359)
         time.sleep(10)
         
-        # Remove os popus que estiverem visíveis antes do botão "Todos os jogos"
-        # open_popups = True
-        # while open_popups:
-        #     try:
-        #         # Verificar se o botão do pop-up de ajuda está visível
-        #         popup_div = WebDriverWait(self.driver, 10).until(
-        #            EC.visibility_of_element_located((By.XPATH, "//div[@class='dropswinbg sparkling']")))
-            
-        #         # Fechar o pop-up de ajuda
-        #         close_popup = WebDriverWait(self.driver, 10).until(
-        #            EC.visibility_of_element_located((By.XPATH, "//button[@class='btn btn-primary promo-optbtn okbtn']")))
-        #         close_popup.click()
         
-        #     except NoSuchElementException:
-        #         try:
-        #             btn_no_thanks = WebDriverWait(self.driver, 10).until(
-        #             EC.visibility_of_element_located((By.XPATH, "//button[@class='pp_desktopBTN2']")))
-        #             btn_no_thanks.click()
-        #         except NoSuchElementException:
-        #             # Não há mais pop-ups abertos, sair do loop
-        #             open_popups = False
-
-        
-        # # Clica no botão "tidos os jogos" para ir para os resultados
-        # all_games = WebDriverWait(self.driver, 10).until(
-        #         EC.presence_of_element_located((By.ID, "homeId")))
-        # all_games.click()
         
        
             
