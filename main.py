@@ -7,6 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 import time
+import pyautogui
 
 env = dotenv.dotenv_values(".env")
 
@@ -23,6 +24,7 @@ class LoginEstrelabet:
       try:
         # Abre o site e efetua o login
         self.driver.get("https://estrelabet.com/ptb/bet/main")
+        pyautogui.click(x=973, y=73)
         input_user = WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located((By.XPATH, "//input[@id='username']")))
         actions = ActionChains(self.driver)
@@ -68,35 +70,41 @@ class LoginEstrelabet:
              EC.presence_of_element_located((By.XPATH, "//a[@class='btn real' and contains(text(), 'Jogar agora')]")))
         time.sleep(2)     
         hidden_element.click()               
-        time.sleep(30)
-
+        time.sleep(3)
+        pyautogui.click(x=973, y=73)
+        time.sleep(20)
+        pyautogui.click(x=591, y=751)
+        time.sleep(3)
+        pyautogui.click(x=1038, y=359)
+        time.sleep(10)
+        
         # Remove os popus que estiverem visíveis antes do botão "Todos os jogos"
-        open_popups = True
-        while open_popups:
-            try:
-                # Verificar se o botão do pop-up de ajuda está visível
-                popup_div = WebDriverWait(self.driver, 10).until(
-                   EC.visibility_of_element_located((By.XPATH, "//div[@class='dropswinbg sparkling']")))
+        # open_popups = True
+        # while open_popups:
+        #     try:
+        #         # Verificar se o botão do pop-up de ajuda está visível
+        #         popup_div = WebDriverWait(self.driver, 10).until(
+        #            EC.visibility_of_element_located((By.XPATH, "//div[@class='dropswinbg sparkling']")))
             
-                # Fechar o pop-up de ajuda
-                close_popup = WebDriverWait(self.driver, 10).until(
-                   EC.visibility_of_element_located((By.XPATH, "//button[@class='btn btn-primary promo-optbtn okbtn']")))
-                close_popup.click()
+        #         # Fechar o pop-up de ajuda
+        #         close_popup = WebDriverWait(self.driver, 10).until(
+        #            EC.visibility_of_element_located((By.XPATH, "//button[@class='btn btn-primary promo-optbtn okbtn']")))
+        #         close_popup.click()
         
-            except NoSuchElementException:
-                try:
-                    btn_no_thanks = WebDriverWait(self.driver, 10).until(
-                    EC.visibility_of_element_located((By.XPATH, "//button[@class='pp_desktopBTN2']")))
-                    btn_no_thanks.click()
-                except NoSuchElementException:
-                    # Não há mais pop-ups abertos, sair do loop
-                    open_popups = False
+        #     except NoSuchElementException:
+        #         try:
+        #             btn_no_thanks = WebDriverWait(self.driver, 10).until(
+        #             EC.visibility_of_element_located((By.XPATH, "//button[@class='pp_desktopBTN2']")))
+        #             btn_no_thanks.click()
+        #         except NoSuchElementException:
+        #             # Não há mais pop-ups abertos, sair do loop
+        #             open_popups = False
 
         
-        # Clica no botão "tidos os jogos" para ir para os resultados
-        all_games = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located((By.ID, "homeId")))
-        all_games.click()
+        # # Clica no botão "tidos os jogos" para ir para os resultados
+        # all_games = WebDriverWait(self.driver, 10).until(
+        #         EC.presence_of_element_located((By.ID, "homeId")))
+        # all_games.click()
         
        
             
